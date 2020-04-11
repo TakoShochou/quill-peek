@@ -9,8 +9,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      parchment: path.resolve(__dirname, 'node_modules/parchment/src/parchment'),
-      'quill$': path.resolve(__dirname, 'node_modules/quill/quill.js'),
+      parchment: path.resolve(__dirname, 'parchment/src/parchment'),
+      'quill$': path.resolve(__dirname, 'quill/quill.js'),
     },
     extensions: ['.js', '.ts', '.svg']
   },
@@ -59,7 +59,7 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
     new CopyPlugin([
-      { from: path.resolve('node_modules/quill/dist/quill.snow.css') }
+      { from: path.resolve('quill/dist/quill.snow.css') }
     ])
   ], // plugins
 }
