@@ -62,4 +62,5 @@ module.exports = {
       { from: path.resolve('quill/dist/quill.snow.css') }
     ])
   ], // plugins
+  devtool: 'inline-source-map',
 }
