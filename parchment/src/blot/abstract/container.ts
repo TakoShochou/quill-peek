@@ -265,7 +265,7 @@ class ContainerBlot extends ShadowBlot implements Parent {
   }
 
   static debug (label: String, ...values: any[]) {
-    console.trace(`%c[${this.blotName}(ContainerBlot) ${label}]`, 'color:dodgerblue', ...values)
+    console.log(`%c[${this.blotName}(ContainerBlot) ${label}]`, 'color:dodgerblue', ...values)
   }
 
   debug (label: String, ...values: any[]) {

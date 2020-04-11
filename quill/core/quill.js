@@ -57,6 +57,8 @@ class Quill {
   }
 
   constructor(container, options = {}) {
+    console.group('quill constructor')
+    console.log('%c***Quill#constructor', 'color:white;background:dodgerblue;', container, options)
     this.options = expandConfig(container, options);
     this.container = this.options.container;
     if (this.container == null) {
@@ -97,8 +99,12 @@ class Quill {
         return this.editor.update(null, mutations, index);
       }, source);
     });
+    console.log('%c***Quill#constructor before convert', 'color:white;background:dodgerblue;')
     let contents = this.clipboard.convert(`<div class='ql-editor' style="white-space: normal;">${html}<p><br></p></div>`);
+    console.log('%c***Quill#constructor after convert', 'color:white;background:dodgerblue;', contents)
+    console.log('%c***Quill#constructor before setContents', 'color:white;background:dodgerblue;')
     this.setContents(contents);
+    console.log('%c***Quill#constructor after setContents', 'color:white;background:dodgerblue;')
     this.history.clear();
     if (this.options.placeholder) {
       this.root.setAttribute('data-placeholder', this.options.placeholder);
@@ -106,6 +112,8 @@ class Quill {
     if (this.options.readOnly) {
       this.disable();
     }
+    console.log('%c***END:Quill#constructor', 'color:white;background:dodgerblue;')
+    console.groupEnd()
   }
 
   addContainer(container, refNode = null) {
@@ -300,7 +308,9 @@ class Quill {
   }
 
   setContents(delta, source = Emitter.sources.API) {
-    return modify.call(this, () => {
+    console.group('Quill#setContents')
+    console.trace('%c***Quill#setContents', 'color:white;background:dodgerblue;', delta, source)
+    const result = modify.call(this, () => {
       delta = new Delta(delta);
       let length = this.getLength();
       let deleted = this.editor.deleteText(0, length);
@@ -313,6 +323,9 @@ class Quill {
       let ret = deleted.compose(applied);
       return ret;
     }, source);
+    console.log('%c***End Quill#setContents', 'color:white;background:dodgerblue;', result)
+    console.groupEnd();
+    return result;
   }
 
   setSelection(index, length, source) {
@@ -333,16 +346,24 @@ class Quill {
   }
 
   update(source = Emitter.sources.USER) {
+    console.group('Quill#update')
+    console.trace('%c***Quill#update', 'color:white;background:dodgerblue;', source)
     let change = this.scroll.update(source);   // Will update selection before selection.update() does if text changes
     this.selection.update(source);
+    console.groupEnd()
     return change;
   }
 
   updateContents(delta, source = Emitter.sources.API) {
-    return modify.call(this, () => {
+    console.group('Quill#updateContents');
+    console.trace('%c***Quill#updateContents', 'color:white;background:dodgerblue;', delta, source)
+    const result = modify.call(this, () => {
       delta = new Delta(delta);
       return this.editor.applyDelta(delta, source);
     }, source, true);
+    console.log('%c***END Quill#updateContents', 'color:white;background:dodgerblue;', result)
+    console.groupEnd()
+    return result;
   }
 }
 Quill.DEFAULTS = {
@@ -429,6 +450,8 @@ function expandConfig(container, userConfig) {
 // Handle selection preservation and TEXT_CHANGE emission
 // common to modification APIs
 function modify(modifier, source, index, shift) {
+  console.group('modify')
+  console.trace('%c***modify', 'color:white;background:dodgerblue;', modifier, source, index, shift)
   if (this.options.strict && !this.isEnabled() && source === Emitter.sources.USER) {
     return new Delta();
   }
@@ -451,6 +474,8 @@ function modify(modifier, source, index, shift) {
       this.emitter.emit(...args);
     }
   }
+  console.log('%c***END modify', 'color:white;background:dodgerblue;', change)
+  console.groupEnd()
   return change;
 }
 

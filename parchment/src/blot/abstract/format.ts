@@ -75,7 +75,7 @@ class FormatBlot extends ContainerBlot implements Formattable {
   }
 
   static debug (label: String, ...values: any[]) {
-    console.trace(`%c[${this.blotName}(FormatBlot) ${label}]`, 'color:teal', ...values)
+    console.log(`%c[${this.blotName}(FormatBlot) ${label}]`, 'color:teal', ...values)
   }
 
   debug (label: String, ...values: any[]) {

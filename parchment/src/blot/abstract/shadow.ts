@@ -190,11 +190,11 @@ class ShadowBlot implements Blot {
   }
 
   static debug (label: String, ...values: any[]) {
-    console.trace(`%c[${this.blotName}(ShadowBlot) ${label}]`, 'color:white;background:red', ...values)
+    console.log(`%c[${this.blotName}(ShadowBlot) ${label}]`, 'color:white;background:red', ...values)
   }
 
   debug (label: String, ...values: any[]) {
-    this.statics.debug(label, ...values)
+    this.constructor.debug(label, ...values)
   }
 }
 

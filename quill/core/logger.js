@@ -1,9 +1,9 @@
 let levels = ['error', 'warn', 'log', 'info'];
-let level = 'warn';
+let level = 'info';
 
 function debug(method, ...args) {
   if (levels.indexOf(method) <= levels.indexOf(level)) {
-    console[method](...args);  // eslint-disable-line no-console
+    console['trace']('%c[QuillDebug]', 'color:white;background:red;', ...args);  // eslint-disable-line no-console
   }
 }
 

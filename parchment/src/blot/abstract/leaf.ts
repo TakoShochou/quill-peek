@@ -34,7 +34,7 @@ class LeafBlot extends ShadowBlot implements Leaf {
   }
 
   static debug (label: String, ...values: any[]) {
-    console.trace(`%c[${this.blotName}(LeafBlot) ${label}]`, 'color:pink', ...values)
+    console.log(`%c[${this.blotName}(LeafBlot) ${label}]`, 'color:pink', ...values)
   }
 
   debug (label: String, ...values: any[]) {

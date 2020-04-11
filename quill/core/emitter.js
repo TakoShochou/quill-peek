@@ -30,11 +30,14 @@ class Emitter extends EventEmitter {
   }
 
   handleDOM(event, ...args) {
+    console.group('handleDOM')
+    console.log('%c***handleDOM', 'color:white;background:green', event, ...args);
     (this.listeners[event.type] || []).forEach(function({ node, handler }) {
       if (event.target === node || node.contains(event.target)) {
         handler(event, ...args);
       }
     });
+    console.groupEnd()
   }
 
   listenDOM(eventName, node, handler) {

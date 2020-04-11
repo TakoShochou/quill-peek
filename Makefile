@@ -25,7 +25,7 @@ build:
 serve:
 	docker run -it \
 		-v $(shell pwd)/dist:/usr/share/nginx/html \
-		-p "8081:80" \
+		-p "8082:80" \
 		--name ${CONTAINER_NAME}-nginx \
 		--rm \
 		nginx:mainline-alpine
