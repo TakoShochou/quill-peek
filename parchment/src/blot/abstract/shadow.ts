@@ -78,8 +78,8 @@ class ShadowBlot implements Blot {
   }
 
   deleteAt(index: number, length: number): void {
-    this.debug('#deleteAt', index, length)
     let blot = this.isolate(index, length);
+    this.debug('#deleteAt', index, length, blot)
     blot.remove();
   }
 
@@ -103,7 +103,7 @@ class ShadowBlot implements Blot {
   }
 
   insertInto(parentBlot: Parent, refBlot: Blot | null = null): void {
-    this.debug('#insertInto', parentBlot, refBlot)
+    this.debug('#insertInto', parentBlot, refBlot, this)
     if (this.parent != null) {
       this.parent.children.remove(this);
     }
@@ -121,9 +121,10 @@ class ShadowBlot implements Blot {
   }
 
   isolate(index: number, length: number): Blot {
-    this.debug('#isoleta', index, length)
+    this.debug('#isolate', index, length)
     let target = this.split(index);
     target.split(length);
+    this.debug('#isolate', index, length, target)
     return target;
   }
 

@@ -165,14 +165,18 @@ class ContainerBlot extends ShadowBlot implements Parent {
   }
 
   path(index: number, inclusive: boolean = false): [Blot, number][] {
-    this.debug('#path', index, inclusive)
+    this.debug('#path-----------------------------------------------------------------', index, inclusive, this)
     let [child, offset] = this.children.find(index, inclusive);
     let position: [Blot, number][] = [[this, index]];
     if (child instanceof ContainerBlot) {
-      return position.concat(child.path(offset, inclusive));
+      const result = position.concat(child.path(offset, inclusive))
+      this.debug('#path if 1 concat result', result)
+      return result
     } else if (child != null) {
+      this.debug('#path if 2 push')
       position.push([child, offset]);
     }
+    this.debug('#path result', position)
     return position;
   }
 
@@ -190,17 +194,28 @@ class ContainerBlot extends ShadowBlot implements Parent {
   }
 
   split(index: number, force: boolean = false): Blot {
-    this.debug('#split', index, force)
+    this.debug('#split', index, force, this)
     if (!force) {
-      if (index === 0) return this;
-      if (index === this.length()) return this.next;
+      if (index === 0) {
+        this.debug('#split if 1', this)
+        return this;
+      }
+      if (index === this.length()) {
+        this.debug('#split if 2', this)
+        return this.next;
+      }
     }
-    let after = <ContainerBlot>this.clone();
+    let after = <ContainerBlot>this.clone(); // この時点ですでに分割されている？
+    this.debug('#split after clone', this, after)
     this.parent.insertBefore(after, this.next);
+    this.debug('#split after parent.insertBefore', this, after)
+    const that = this
     this.children.forEachAt(index, this.length(), function(child, offset, length) {
+      that.debug('#split forEactAt', child, offset, length)
       child = child.split(offset, force);
       after.appendChild(child);
     });
+    this.debug('#split result', this, after)
     return after;
   }
 
@@ -265,7 +280,7 @@ class ContainerBlot extends ShadowBlot implements Parent {
   }
 
   static debug (label: String, ...values: any[]) {
-    console.log(`%c[${this.blotName}(ContainerBlot) ${label}]`, 'color:dodgerblue', ...values)
+    console.trace(`%c[${this.blotName}(ContainerBlot) ${label}]`, 'color:dodgerblue', ...values)
   }
 
   debug (label: String, ...values: any[]) {

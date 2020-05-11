@@ -126,6 +126,7 @@ class ScrollBlot extends ContainerBlot {
   }
 
   update(mutations?: MutationRecord[], context: { [key: string]: any } = {}): void {
+    this.debug('#update', mutations, context)
     mutations = mutations || this.observer.takeRecords();
     // TODO use WeakMap
     mutations
@@ -160,6 +161,14 @@ class ScrollBlot extends ContainerBlot {
       super.update(this.domNode[Registry.DATA_KEY].mutations, context);
     }
     this.optimize(mutations, context);
+  }
+
+  static debug (label: String, ...values: any[]) {
+    // console.log(`%c[${this.blotName}(ScrollBlot) ${label}]`, 'color:white;background:darkblue', ...values)
+  }
+
+  debug (label: String, ...values: any[]) {
+    this.constructor.debug(label, ...values)
   }
 }
 

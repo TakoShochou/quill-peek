@@ -3,7 +3,7 @@ let level = 'info';
 
 function debug(method, ...args) {
   if (levels.indexOf(method) <= levels.indexOf(level)) {
-    console['trace']('%c[QuillDebug]', 'color:white;background:red;', ...args);  // eslint-disable-line no-console
+    console[method]('%c[QuillDebug]', 'color:white;background:red;', ...args);  // eslint-disable-line no-console
   }
 }
 

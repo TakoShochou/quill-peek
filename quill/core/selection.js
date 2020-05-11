@@ -316,6 +316,7 @@ class Selection {
   }
 
   update(source = Emitter.sources.USER) {
+    console.log('%cSelection#update' + '*'.repeat(50), 'color:white;background:dodgerblue;font-weight:bold;');
     let oldRange = this.lastRange;
     let [lastRange, nativeRange] = this.getRange();
     this.lastRange = lastRange;

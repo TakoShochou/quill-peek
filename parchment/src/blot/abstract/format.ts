@@ -9,13 +9,15 @@ class FormatBlot extends ContainerBlot implements Formattable {
   protected attributes: AttributorStore;
 
   static formats(domNode: HTMLElement): any {
-    this.debug('.formats', domNode)
+    let result
     if (typeof this.tagName === 'string') {
-      return true;
+      result = true;
     } else if (Array.isArray(this.tagName)) {
-      return domNode.tagName.toLowerCase();
+      result = domNode.tagName.toLowerCase();
     }
-    return undefined;
+    result = undefined;
+    this.debug('.formats', domNode, result)
+    return result
   }
 
   constructor(domNode: Node) {
@@ -37,12 +39,12 @@ class FormatBlot extends ContainerBlot implements Formattable {
   }
 
   formats(): { [index: string]: any } {
-    this.debug('#formats')
     let formats = this.attributes.values();
     let format = this.statics.formats(this.domNode);
     if (format != null) {
       formats[this.statics.blotName] = format;
     }
+    this.debug('#formats', formats)
     return formats;
   }
 
@@ -74,13 +76,13 @@ class FormatBlot extends ContainerBlot implements Formattable {
     return wrapper;
   }
 
-  static debug (label: String, ...values: any[]) {
-    console.log(`%c[${this.blotName}(FormatBlot) ${label}]`, 'color:teal', ...values)
-  }
+  //static debug (label: String, ...values: any[]) {
+  //  console.trace(`%c[${this.blotName}(FormatBlot) ${label}]`, 'color:teal', ...values)
+  //}
 
-  debug (label: String, ...values: any[]) {
-    this.statics.debug(label, ...values)
-  }
+  //debug (label: String, ...values: any[]) {
+  //  this.statics.debug(label, ...values)
+  //}
 }
 
 export default FormatBlot;

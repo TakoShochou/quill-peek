@@ -21,6 +21,7 @@ class Cursor extends Parchment.Embed {
   }
 
   format(name, value) {
+    console.log('%cCURSOR#format' + '*'.repeat(50), 'color:white;background:red;font-weight:bold;');
     if (this._length !== 0) {
       return super.format(name, value);
     }
@@ -56,6 +57,7 @@ class Cursor extends Parchment.Embed {
   }
 
   restore() {
+    console.trace('%cCURSOR#restore' + '*'.repeat(50), 'color:white;background:red;font-weight:bold;', this.selection.composing, this.parent);
     if (this.selection.composing || this.parent == null) return;
     let textNode = this.textNode;
     let range = this.selection.getNativeRange();
@@ -67,6 +69,7 @@ class Cursor extends Parchment.Embed {
     while (this.domNode.lastChild != null && this.domNode.lastChild !== this.textNode) {
       this.domNode.parentNode.insertBefore(this.domNode.lastChild, this.domNode);
     }
+    console.log('%c after while { }', 'color:white;background:red;font-weight:bold;');
     if (this.textNode.data !== Cursor.CONTENTS) {
       let text = this.textNode.data.split(Cursor.CONTENTS).join('');
       if (this.next instanceof TextBlot) {
@@ -95,6 +98,7 @@ class Cursor extends Parchment.Embed {
   }
 
   update(mutations, context) {
+    console.log('%cCURSOR#update' + '*'.repeat(50), 'color:white;background:red;font-weight:bold;');
     if (mutations.some((mutation) => {
       return mutation.type === 'characterData' && mutation.target === this.textNode;
     })) {

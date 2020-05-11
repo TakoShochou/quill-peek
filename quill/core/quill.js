@@ -451,7 +451,7 @@ function expandConfig(container, userConfig) {
 // common to modification APIs
 function modify(modifier, source, index, shift) {
   console.group('modify')
-  console.trace('%c***modify', 'color:white;background:dodgerblue;', modifier, source, index, shift)
+  console.log('%c***modify', 'color:white;background:dodgerblue;', modifier, source, index, shift)
   if (this.options.strict && !this.isEnabled() && source === Emitter.sources.USER) {
     return new Delta();
   }
